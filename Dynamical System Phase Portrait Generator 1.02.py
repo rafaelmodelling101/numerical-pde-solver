@@ -9,29 +9,38 @@ import matplotlib.pyplot as plt
 # Initial Variables
 
 Lx = 10        #Length in x direction
-Nx = 11        #Number of spacial points on dimension x
+Nx = 11        #Number of spacial points in x direction
+Ny = 11        #Number of spacial points in y direction
 
 # Generate Line
-x_line = np.linspace(0,Lx,Nx)
-zero_vector = np.zeros(Nx)
+x_coord = np.linspace(-Lx,Lx,Nx)
+y_coord = np.linspace(-Lx,Lx,Nx)
+
+X, Y = np.meshgrid(x_coord, y_coord)
+
 
 # dx/dt
-def derivative_x(x_coord):
+def derivative_x(x, y):
     # Here you input what dx/dt is
-    dx = x_coord*(x_coord -2)
+    dx = x*(x -2)
     return dx
 
-# calculate the derivative of every point on the line
-def derivative_vector(vector):
-    for i in range(Nx):
-        zero_vector[i] = derivative_x(vector[i])
-    return zero_vector
+def derivative_y(x, y):
+    # Here you input what dx/dt is
+    dy = y*(y -2)
+    return dy
 
-gradient_vector = derivative_vector(x_line)
-plt.plot(x_line, gradient_vector)
+# calculate the derivative of every point on the grid
+x_vector = derivative_x(X,Y)
+y_vector = derivative_y(X,Y)
+
+
+
+plt.quiver(X,Y, x_vector, y_vector)
+plt.axhline(0,color = 'red', linewidth=1)
+plt.axvline(0,color = 'red', linewidth=1)
 plt.show()
-#print(derivative_vector(x_line))
-#print(x_line)
+
 
     
 
