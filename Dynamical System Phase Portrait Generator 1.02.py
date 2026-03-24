@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 
 # Initial Variables
 
-Lx = 10        #Length in x direction
-Nx = 11        #Number of spacial points in x direction
-Ny = 11        #Number of spacial points in y direction
+Lx = 5        #Length in x direction
+Nx = 41        #Number of spacial points in x direction
+Ny = 41        #Number of spacial points in y direction
 
 # Generate Line
 x_coord = np.linspace(-Lx,Lx,Nx)
@@ -22,12 +22,12 @@ X, Y = np.meshgrid(x_coord, y_coord)
 # dx/dt
 def derivative_x(x, y):
     # Here you input what dx/dt is
-    dx = x*(x -2)
+    dx = x*(4-x-y)
     return dx
 
 def derivative_y(x, y):
     # Here you input what dx/dt is
-    dy = y*(y -2)
+    dy = y*(3-x-2*y)
     return dy
 
 # calculate the derivative of every point on the grid
@@ -36,9 +36,9 @@ y_vector = derivative_y(X,Y)
 
 
 
-plt.quiver(X,Y, x_vector, y_vector)
-plt.axhline(0,color = 'red', linewidth=1)
-plt.axvline(0,color = 'red', linewidth=1)
+plt.quiver(X,Y, x_vector, y_vector, color = 'red')
+plt.axhline(0,color = 'black', linewidth=1)
+plt.axvline(0,color = 'black', linewidth=1)
 plt.show()
 
 
