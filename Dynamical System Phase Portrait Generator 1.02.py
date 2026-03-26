@@ -20,23 +20,29 @@ X, Y = np.meshgrid(x_coord, y_coord)
 
 
 # dx/dt
-def derivative_x(x, y):
-    # Here you input what dx/dt is
+def derivative(x, y):
+    # Here you input dx/dt and dy/dt
     dx = x*(4-x-y)
-    return dx
-
-def derivative_y(x, y):
-    # Here you input what dx/dt is
     dy = y*(3-x-2*y)
-    return dy
+    return dx, dy
+
 
 # calculate the derivative of every point on the grid
-x_vector = derivative_x(X,Y)
-y_vector = derivative_y(X,Y)
+U, V = derivative(X,Y)
 
 
 
-plt.quiver(X,Y, x_vector, y_vector, color = 'red')
+#scale all the vectors so they have unit length
+scalar = np.sqrt(U**2 + V**2)
+
+# avoid division by zero
+scalar[scalar == 0] = 1
+
+U_unit = U / scalar
+V_unit = V / scalar
+
+
+plt.quiver(X,Y,U_unit, V_unit, color = 'red')
 plt.axhline(0,color = 'black', linewidth=1)
 plt.axvline(0,color = 'black', linewidth=1)
 plt.show()
